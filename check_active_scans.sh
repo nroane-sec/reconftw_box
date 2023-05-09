@@ -20,9 +20,9 @@ function check_active_scans(){
 		read queue_scan
 		
 		if [[ $queue_scan == "Y" ]]; then
-			
+			# TODO - need to check if that scan is already queued so people don't clog it up with duplicates
 
-			grep -n "$scan" queued_scans.rftw 		# This checks the queued_scans.rftw file to see if the desired scan is already queued up
+			grep -n "$scan" queued_scans.rftw > /dev/null		# This checks the queued_scans.rftw file to see if the desired scan is already queued up
 			
 			if [[ $? -eq "0" ]]; then
 				echo "This scan is already queued, sorry"
@@ -44,3 +44,6 @@ function check_active_scans(){
 }
 
 check_active_scans
+
+
+# TODO - Once a reconftw scan is completed, we should start the next one in the queue and remove it from the queue
